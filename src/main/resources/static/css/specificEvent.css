@@ -1,0 +1,136 @@
+#main{
+  width: 100%;
+  height: 1313px;
+  background: rgba(0,0,0,0.6000000238418579);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+#bckgpic{
+  width: 100%;
+  height: 1015px;
+  background: url("../images/v4_2.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: absolute;
+  opacity: 0.7;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+#specificEventBox{
+  width: 1220px;
+  height: 800px;
+  background: rgba(174,33,197,1);
+  border: 1px solid black;
+  opacity: 0.9;
+  position: absolute;
+  top: 120px;
+  border-radius: 35px;
+  overflow: hidden;
+  order: 1;
+  text-align:center;
+}
+
+h3{
+  font-family: Revalia;
+  font-weight: Regular;
+}
+
+
+
+ul{
+  background: rgba(129,24,143,1);
+}
+.active{
+  background: rgba(174,33,197,1);
+}
+.nav-tabs > li.active > a {
+  background-color: rgba(174,33,197,1) !important;
+  border: medium none;
+  border-radius: 0;
+}
+
+#specificEventBox{
+  position: relative;
+  left: 15%;
+  width: 70%;
+  height: 800px;
+  text-align: left;
+  font-family: Revalia;
+  font-weight: Regular;
+}
+
+#menu1{
+  z-index: 1;
+  left: 50px;
+  position: absolute;
+}
+#menu2{
+  z-index: 0;
+  left: 50px;
+  position: absolute;
+}
+#menu3{
+  z-index: 2;
+  left: 50px;
+  position: absolute;
+}
+#menu4{
+  z-index: 15;
+  left: 50px;
+  position: absolute;
+}
+
+#home{
+  z-index: 9;
+  left: 50px;
+  position: absolute;
+}
+
+#menu2 iframe{
+  width: 560px;
+  height: 315px;
+}
+
+#videoDiv{
+  width: 960px;
+}
+
+#eventCode{
+  z-index: 15;
+  top: 600px;
+}
+
+#addEventButton{
+  font-family: Revalia;
+  font-weight: Regular;
+  background: rgba(129,24,143,1);
+  border-color:rgba(98,12,110,1);
+  opacity: 0.5;
+}
+#addEventButton:hover{
+  opacity:1;
+  transition: opacity .2s ease-out;
+  -moz-transition: opacity .2s ease-out;
+  -webkit-transition: opacity .2s ease-out;
+  -o-transition: opacity .2s ease-out;
+}
+
+#removeUserButton{
+  font-family: Revalia;
+  font-weight: Regular;
+  background: rgba(129,24,143,1);
+  border-color:rgba(98,12,110,1);
+  opacity: 0.5;
+}
+#removeUserButton:hover{
+  opacity:1;
+  transition: opacity .2s ease-out;
+  -moz-transition: opacity .2s ease-out;
+  -webkit-transition: opacity .2s ease-out;
+  -o-transition: opacity .2s ease-out;
+}

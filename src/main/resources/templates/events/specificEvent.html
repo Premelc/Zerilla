@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <script>
+    function hideFunction(id) {
+      document.getElementById("home").style.display="none";
+      document.getElementById("menu1").style.display="none";
+      document.getElementById("menu2").style.display="none";
+      document.getElementById("menu3").style.display="none";
+      document.getElementById(id).style.display="block";
+    }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Revalia&display=swap" rel="stylesheet" />
+  <link href="/css/specificEvent.css" rel="stylesheet"/>
+  <link href="/css/main.css" rel="stylesheet" />
+  <link href="/css/footer.css" rel="stylesheet" />
+  <link href="./css/navbar.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event name</title>
+</head>
+<body>
+
+
+  <div id="main">
+    <div id="bckgpic">
+    </div>
+    <div class="footer">
+      <div class="fbLogo"></div>
+      <div class="igLogo"></div>
+      <div class="gpLogo"></div>
+      <div class="twitterLogo"></div>
+    </div>
+  </div>
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10 justify-content-left">
+    <div id="specificEventBox">
+      <div class="tab-content">
+        <div th:each="event : ${events}" >
+          <div th:if="${event.id} == ${id}">
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" onclick="hideFunction('home')">Overview</a></li>
+        <li><a data-toggle="tab" href="#menu1" onclick="hideFunction('menu1')">Artist</a></li>
+        <li><a data-toggle="tab" href="#menu2" onclick="hideFunction('menu2')">Host</a></li>
+        <li><a data-toggle="tab" href="#menu3" onclick="hideFunction('menu3')">Location</a></li>
+        <li th:if="${#httpServletRequest.remoteUser} == ${event.organiser.username}"><a data-toggle="tab" href="#menu4">Host Options</a></li>
+      </ul>
+
+
+
+
+          <div id="home" class="tab-pane fade in active">
+                  <h2>Overview</h2>
+                  <div><p th:text="${event.longDesc}"></p></div>
+                  <div id="eventCode">
+                  <h3 th:text="'EVENT CODE: ' + ${event.code}"></h3>
+                    <form th:action="@{/specific_event_added}" method="post">
+                      <input type="hidden" name="title" id="title" th:value="${event.title}">
+                      <input type="hidden" name="username" id="username" th:value="${#httpServletRequest.remoteUser}">
+                  <button type="submit" class="btn btn-primary btn-block" id="addEventButton" >Add to my events</button>
+                    </form>
+                  </div>
+          </div>
+
+
+          <div id="menu1" class="tab-pane fade">
+            <h2>Artist</h2>
+              <p ><div th:text="${event.artistDesc}"></div></p>
+                <div th:if="${event.embeddedVid}" class="embed-responsive embed-responsive-16by9" id="videoDiv">
+                  <iframe width="560" height="315" th:src="${event.embeddedVid}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>></iframe>
+                </div>
+          </div>
+
+
+          <div id="menu2" class="tab-pane fade">
+            <h2>Host</h2>
+            <h3 th:text="${event.organiser.username}"></h3>
+            <p th:text="${event.organiser.aboutOrganiser}"></p>
+          </div>
+
+
+          <div id="menu3" class="tab-pane fade">
+            <h2>Location</h2>
+            <h3 th:text="${event.location}"></h3>
+            <p th:text="${event.aboutLocation}"></p>
+          </div>
+
+            <div id="menu4" class="tab-pane fade">
+              <h2>Host options</h2>
+              <h3>Atendees</h3>
+              <span th:each="user : ${event.users}" ><span th:if="${user.username} != ${#httpServletRequest.remoteUser}"><h4 th:text="${user.username}"></h4><form th:action="@{/specificEventRemoval}" method="post">
+              <input type="hidden" name="eventTitle" id="eventTitle" th:value="${event.title}">
+              <input type="hidden" name="userUsername" id="userUsername" th:value="${#httpServletRequest.remoteUser}">
+                <input type="hidden" name="removed_user" id="removed_user" th:value="${user.username}">
+                <input type="hidden" name="id" th:value="${event.id}">
+              <button type="submit" class="btn btn-primary btn-block" id="removeUserButton" >Remove from event</button>
+            </form>
+              </span>
+              </span>
+               <span><form th:action="@{/}" method="post"><button type="submit" class="btn btn-primary btn-block" id="unlistEventButton" >Unlist Event</button></form></span>
+               <span th:if="${event.privacy} == true"><form th:action="@{/make_private}" method="post"><input type="hidden" name="id" th:value="${event.id}"><input type="hidden" name="eventTitle" id="eventTitle2" th:value="${event.title}"><button type="submit" class="btn btn-primary btn-block" id="PrivateEventButton" > Make Event private</button></form></span>
+               <span th:if="${event.privacy} == false"><form th:action="@{/make_public}" method="post"><input type="hidden" name="id" th:value="${event.id}"><input type="hidden" name="eventTitle" id="eventTitle3" th:value="${event.title}"><button type="submit" class="btn btn-primary btn-block" id="PublicEventButton" >Make Event public</button></form></span>
+              <h3></h3>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="col-sm-1"></div>
+
+  <div class="topBar">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="col-sm-6">
+          <a th:href="@{/}"><span class="Zerilla">Zerilla</span></a>
+        </div>
+        <div class="col-sm-6">
+
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div  class="col-sm-1">
+          <a th:href="@{/}"><span class="home">Home</span></a>
+        </div>
+        <div  class="col-sm-1">
+          <a th:href="@{/events}"><span class="discover">Discover</span></a>
+        </div>
+
+        <div  class="col-sm-3">
+          <span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/my_profile}" method="post"><button type="submit" id="profileButton" class="btn btn-primary btn-block" th:value="'Hello '+ ${#httpServletRequest.remoteUser}">Hello [[${#httpServletRequest.remoteUser}]]!</button><input type="hidden" th:value="${#httpServletRequest.remoteUser}"></form></span></span>
+          <span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/login}"><span class="login"><span class="glyphicon glyphicon-log-in"></span> Login</span></a></span>
+        </div>
+        <div  class="col-sm-3">
+          <span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/logout}" method="post"><button type="submit" class="btn btn-primary btn-block" value="Sign Out" id="logoutButton">Sign out</button></form></span></span>
+          <span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/register}"><span class="register"><span class="glyphicon glyphicon-user"></span> Register</span></a></span>
+        </div>
+        <div class="col-sm-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <div th:if="${message} != null">
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var m =/*[[${message}]]*/'defaultanyvalue';
+      alert(m);
+    </script>
+  </div>
+</body>
+</html>

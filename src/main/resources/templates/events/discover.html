@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Discover</title>
+
+
+
+  <link href="https://fonts.googleapis.com/css?family=Revalia&display=swap" rel="stylesheet" />
+  <link href="css/main.css" rel="stylesheet" />
+  <link href="css/footer.css" rel="stylesheet" />
+  <link href="/css/navbar.css" rel="stylesheet" />
+  <link href="css/discover.css" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+</head>
+<body>
+
+
+
+
+<div class= "row">
+  <div id="main">
+      <div id="bckgpic">
+      </div>
+    <div class="footer">
+    <div class="fbLogo"></div>
+    <div class="igLogo"></div>
+    <div class="gpLogo"></div>
+    <div class="twitterLogo"></div>
+  </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 justify-content-right">
+      <div id="discoverBox">
+        <div class="panel-group" id="accordion" style="background: solid black">
+  <div class="panel panel-default" >
+    <div class="panel-heading" style="background: rgba(129,24,143,1);">
+      <h4 class="panel-title" style="color: rgba(255,255,255,1);">
+        <a data-toggle="collapse" data-parent="#accordionSearch" href="#searchCollapse">
+        Advanced search</a>
+      </h4>
+    </div>
+    <div id="searchCollapse" class="panel-collapse collapse in" style="background: rgba(174,33,197,1);border: 1px solid black">
+      <div class="panel-body">
+        <div id="registerContent">
+          <form th:action="@{/search}" method="post">
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="username">Username</label><br>
+              <input type="text" id="username" name="searchUsername" placeholder="John"><br>
+            </div>
+            <div class="col-sm-4">
+              <label for="Location">Location</label><br>
+              <input type="text" id="Location" name="searchLocation" placeholder="Zagreb"><br>
+            </div>
+            <div class="col-sm-4">
+              <label for="type">Type</label><br>
+              <input type="text" id="type" name="searchType" placeholder="rave"><br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="date">Date</label><br>
+              <input type="text" id="date" name="searchDate" placeholder="01/09/2021"><br><br>
+            </div>
+            <div class="col-sm-4">
+              <label for="specificEventCode">Specific event code</label><br>
+              <input type="text" id="specificEventCode" name="searchCode" placeholder="e635a2"><br><br>
+            </div>
+            <div class="col-sm-4">
+
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit" class="btn btn-primary btn-block" id="searchButton" >Search</button>
+          </div>
+          </form>
+            <div class="row">
+              <span th:if="${state} == true"><form th:action="@{/events}" method="get"> <br><button type="submit" id="resetSearchButton" value="Reset Search" class="btn btn-primary btn-block">Reset search</button></form></span>
+            </div>
+          <div class="row" th:if="${message} != null">
+            <h3 th:text="${message}"></h3>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="panel-group" id="accordionSearch" style="background: solid black">
+  <div class="panel panel-default" th:each="event : ${events}">
+    <span th:if="${event.privacy} == true">
+    <div class="panel-heading" style="background: rgba(129,24,143,1);">
+      <h4 class="panel-title" style="color: rgba(255,255,255,1);" >
+        <a data-toggle="collapse" data-parent="#accordionSearch" th:href="'#collapse' + ${event.id}" th:text="${event.title}">
+        Student party in Rijeka</a>
+      </h4>
+    </div>
+    <div th:id="'collapse'+ ${event.id}" class="panel-collapse collapse" style="background: rgba(174,33,197,1);border: 1px solid black">
+      <div class="panel-body"><div  th:text="${event.shortDesc}"> </div><form th:action="@{/specific_event}" method="get"> <br><button id="findOutMoreButton" type="submit" value="FIND OUT MORE" class="btn btn-primary btn-block">FIND OUT MORE</button><input type="hidden" name="id" th:value="${event.id}"></form>
+      </div>
+    </div>
+    </span>
+  </div>
+
+</div>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+      </div>
+
+
+<div class="topBar">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="col-sm-6">
+        <a th:href="@{/}"><span class="Zerilla">Zerilla</span></a>
+      </div>
+      <div class="col-sm-6">
+
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div  class="col-sm-1">
+        <a th:href="@{/}"><span class="home">Home</span></a>
+      </div>
+      <div  class="col-sm-1">
+        <a th:href="@{/events}"><span class="discover">Discover</span></a>
+      </div>
+
+      <div  class="col-sm-3">
+        <span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/my_profile}" method="post"><button type="submit" id="profileButton" class="btn btn-primary btn-block" th:value="'Hello '+ ${#httpServletRequest.remoteUser}">Hello [[${#httpServletRequest.remoteUser}]]!</button><input type="hidden" th:value="${#httpServletRequest.remoteUser}"></form></span></span>
+        <span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/login}"><span class="login"><span class="glyphicon glyphicon-log-in"></span> Login</span></a></span>
+      </div>
+      <div  class="col-sm-3">
+        <span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/logout}" method="post"><button type="submit" class="btn btn-primary btn-block" value="Sign Out" id="logoutButton">Sign out</button></form></span></span>
+        <span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/register}"><span class="register"><span class="glyphicon glyphicon-user"></span> Register</span></a></span>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

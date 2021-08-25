@@ -1,0 +1,187 @@
+.navbar-custom{
+  width: 100%;
+  height: 85px;
+  background: rgba(174,33,197,1);
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border: 1px solid black;
+  opacity: 0.5;
+  position: fixed;
+  overflow: hidden;
+}
+.navbar-custom:hover{
+  opacity:1;
+  transition: opacity .2s ease-out;
+  -moz-transition: opacity .2s ease-out;
+  -webkit-transition: opacity .2s ease-out;
+  -o-transition: opacity .2s ease-out;
+}
+.nav.navbar-nav.navbar-right li a {
+  font-family: Revalia;
+  font-weight: Regular;
+  color: rgba(255,255,255,1);
+  font-size: 20px;
+  opacity: 1;
+}
+.nav.navbar-nav.navbar-right li a:hover{
+    font-size: 21px;
+}
+.navbar-brand{
+  width: 356px;
+  color: rgba(255,255,255,1);
+  top: -15px;
+  left: 80px;
+  font-family: Revalia;
+  font-weight: Regular;
+  font-size: 60px;
+  opacity: 1;
+  text-align: center;
+}
+
+.topBar {
+  margin-left:auto;
+  margin-right:auto;
+  width: 100%;
+  height: 85px;
+  background: rgba(174,33,197,1);
+  border: 1px solid black;
+  opacity: 0.5;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+.topBar:hover{
+	opacity:1;
+  transition: opacity .2s ease-out;
+  -moz-transition: opacity .2s ease-out;
+  -webkit-transition: opacity .2s ease-out;
+  -o-transition: opacity .2s ease-out;
+}
+.login {
+  color: rgba(255,255,255,1);
+  position: fixed;
+  font-family: Revalia;
+  font-weight: Regular;
+  font-size: 20px;
+  opacity: 1;
+  text-align: center;
+}
+.login:hover{
+  font-size: 21px;
+}
+
+.register {
+  color: rgba(255,255,255,1);
+  position: fixed;
+  font-family: Revalia;
+  font-weight: Regular;
+  font-size: 20px;
+  opacity: 1;
+  text-align: center;
+}
+.register:hover{
+  font-size: 21px;
+}
+
+.profile{
+  color: rgba(255,255,255,1);
+  position: fixed;
+  font-family: Revalia;
+  font-weight: Regular;
+  font-size: 20px;
+  opacity: 1;
+  text-align: center;
+}
+.profile:hover{
+  font-size: 21px;
+}
+.signout {
+  top: 35px;
+  color: rgba(255,255,255,1);
+  position: fixed;
+  font-family: Revalia;
+  font-weight: Regular;
+  font-size: 20px;
+  opacity: 1;
+  text-align: center;
+}
+.signout:hover{
+  font-size: 21px;
+}
+
+.discover {
+  color: rgba(255,255,255,1);
+  position: fixed;
+  font-family: Revalia;
+  font-weight: Regular;
+  font-size: 20px;
+  opacity: 1;
+  text-align: center;
+}
+.discover:hover{
+  font-size: 21px;
+}
+.home {
+  color: rgba(255,255,255,1);
+  position: fixed;
+  font-family: Revalia;
+  font-weight: Regular;
+  font-size: 20px;
+  opacity: 1;
+  text-align: center;
+}
+.home:hover{
+  font-size: 21px;
+}
+.Zerilla {
+  color: rgba(255,255,255,1);
+  position: fixed;
+  font-family: Revalia;
+  font-weight: Regular;
+  font-size: 40px;
+  opacity: 1;
+  text-align: center;
+}
+.Zerilla:hover{
+  font-size: 41px;
+}
+
+input [type=submit]{
+  width: 70%;
+  padding: 12px 20px;
+  margin: 8px 0;
+}
+#profileButton{
+  top: 35px;
+  font-family: Revalia;
+  font-weight: Regular;
+  background: rgba(129,24,143,1);
+  border-color:rgba(98,12,110,1);
+  opacity: 0.9;
+}
+#profileButton:hover{
+  opacity:1;
+  transition: opacity .2s ease-out;
+  -moz-transition: opacity .2s ease-out;
+  -webkit-transition: opacity .2s ease-out;
+  -o-transition: opacity .2s ease-out;
+}
+
+#logoutButton{
+  top: 35px;
+  font-family: Revalia;
+  font-weight: Regular;
+  background: rgba(129,24,143,1);
+  border-color:rgba(98,12,110,1);
+  opacity: 0.9;
+}
+#logoutButton:hover{
+  opacity:1;
+  transition: opacity .2s ease-out;
+  -moz-transition: opacity .2s ease-out;
+  -webkit-transition: opacity .2s ease-out;
+  -o-transition: opacity .2s ease-out;
+}

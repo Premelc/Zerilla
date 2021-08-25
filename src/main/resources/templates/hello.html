@@ -1,0 +1,68 @@
+<!DOCTYPE html >
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Revalia&display=swap" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
+    <link href="./css/footer.css" rel="stylesheet" />
+    <link href="./css/navbar.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zerilla</title>
+</head>
+<body>
+
+
+
+<div class="main">
+    <div class="discoverPic">
+        <span class="discoverTitle">Looking for a party?</span>
+        <span class="discoverText">Find a public party in your local area</span>
+        <a th:href="@{/events}"><div class="discoverButton">
+            <span class="discoverButtonText">DISCOVER</span>
+        </div></a>
+    </div>
+
+    <div class="hostPic">
+        <span class="hostTitle">Hosting a party?</span>
+        <span class="hostText">Create a public or private event and invite people</span>
+        <div class="hostButton">
+            <span class="hostButtonText">HOST</span>
+        </div>
+    </div>
+
+    <div class="managePic">
+        <span class="manageTitle">Manage your events</span>
+        <span class="manageText">Make your events public, invite people,party like there’s no tommorow</span>
+        <a th:href="@{/login}"><div class="getStartedButton">
+            ><span class="getStartedButtonText">GET STARTED</span>
+        </div>
+        </a>
+    </div>
+
+    <div class="footer">
+        <div class="fbLogo"></div>
+        <div class="igLogo"></div>
+        <div class="gpLogo"></div>
+        <div class="twitterLogo"></div>
+    </div>
+
+
+    <div class="topBar">
+        <div th:if="${#httpServletRequest.remoteUser}">
+            <a th:href="@{/}"><span class="login">Hello [[${#httpServletRequest.remoteUser}]]!</span></a>
+            <span class="register"><form th:action="@{/logout}" method="post"><input type="submit" value="Sign Out"></form></span>
+        </div>
+        <hidden th:if="${#httpServletRequest.remoteUser == null}">
+            <a th:href="@{/login}"><span class="login"><span class="glyphicon glyphicon-log-in"></span> Login</span></a>
+            <a th:href="@{/register}"><span class="register"><span class="glyphicon glyphicon-user"></span> Register</span></a>
+        </hidden>
+        <a th:href="@{/events}">><span class="discover">Discover</span></a>
+        <a th:href="@{/}"><span class="home">Home</span></a>
+        <a th:href="@{/}"><span class="Zerilla">Zerilla</span></a>
+    </div>
+
+</div>
+</body>
+</html>

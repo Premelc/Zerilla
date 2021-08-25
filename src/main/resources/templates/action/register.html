@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Revalia&display=swap" rel="stylesheet" />
+  <link href="./css/main.css" rel="stylesheet" />
+  <link href="./css/footer.css" rel="stylesheet" />
+  <link href="./css/register.css" rel="stylesheet"/>
+  <link href="./css/navbar.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Register</title>
+</head>
+<body>
+	<div class= "row">
+		<div id="main">
+			<div id="bckgpic">
+			</div>
+		<div class="footer">
+		<div class="fbLogo"></div>
+		<div class="igLogo"></div>
+		<div class="gpLogo"></div>
+		<div class="twitterLogo"></div>
+	</div>
+		</div>
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4 justify-content-right">
+			<div class="RegisterBox">
+			<form th:action="@{/process_register}" th:object="${user}" method="post">
+				<div id="registerContent">
+  				<label for="username">Username</label><br>
+  				<input type="text" id="username" th:field="*{username}" name="username" placeholder="username" required><br>
+  				<label for="password">Password</label><br>
+  				<input type="password" id="password" name="password" th:field="*{password}" placeholder="password" required minlength="5" maxlength="15"><br>
+  				<button type="submit" class="btn btn-primary btn-block" id="registerButton" >Register</button>
+  				<br><br>
+				</div>
+			</form>
+				<br><br>
+				<div class="row">
+					<div class="col-sm-4"></div>
+					<div class="col-sm-4 d-flex justify-content-center"><a th:href="@{/login}"><span>Already have an account?</span></a></div>
+					<div class="col-sm-4"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4"></div>
+	</div>
+
+	<div class="topBar">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="col-sm-6">
+					<a th:href="@{/}"><span class="Zerilla">Zerilla</span></a>
+				</div>
+				<div class="col-sm-6">
+
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div  class="col-sm-1">
+					<a th:href="@{/}"><span class="home">Home</span></a>
+				</div>
+				<div  class="col-sm-1">
+					<a th:href="@{/events}"><span class="discover">Discover</span></a>
+				</div>
+
+				<div  class="col-sm-3">
+					<span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/my_profile}" method="post"><button type="submit" id="profileButton" class="btn btn-primary btn-block" th:value="'Hello '+ ${#httpServletRequest.remoteUser}">Hello [[${#httpServletRequest.remoteUser}]]!</button><input type="hidden" th:value="${#httpServletRequest.remoteUser}"></form></span></span>
+					<span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/login}"><span class="login"><span class="glyphicon glyphicon-log-in"></span> Login</span></a></span>
+				</div>
+				<div  class="col-sm-3">
+					<span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/logout}" method="post"><button type="submit" class="btn btn-primary btn-block" value="Sign Out" id="logoutButton">Sign out</button></form></span></span>
+					<span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/register}"><span class="register"><span class="glyphicon glyphicon-user"></span> Register</span></a></span>
+				</div>
+				<div class="col-sm-4"></div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
