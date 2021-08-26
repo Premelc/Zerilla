@@ -8,6 +8,8 @@
       document.getElementById("menu1").style.display="none";
       document.getElementById("menu2").style.display="none";
       document.getElementById("menu3").style.display="none";
+      document.getElementById("menu4").style.display="none";
+      document.getElementById("menu5").style.display="none";
       document.getElementById(id).style.display="block";
     }
   </script>
@@ -17,6 +19,7 @@
   <link href="/css/main.css" rel="stylesheet" />
   <link href="/css/footer.css" rel="stylesheet" />
   <link href="./css/navbar.css" rel="stylesheet" />
+  <link href="./css/discover.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -49,7 +52,8 @@
         <li><a data-toggle="tab" href="#menu1" onclick="hideFunction('menu1')">Artist</a></li>
         <li><a data-toggle="tab" href="#menu2" onclick="hideFunction('menu2')">Host</a></li>
         <li><a data-toggle="tab" href="#menu3" onclick="hideFunction('menu3')">Location</a></li>
-        <li th:if="${#httpServletRequest.remoteUser} == ${event.organiser.username}"><a data-toggle="tab" href="#menu4">Host Options</a></li>
+        <li th:if="${#httpServletRequest.remoteUser} == ${event.organiser.username}"><a data-toggle="tab" href="#menu4" onclick="hideFunction('menu4')">Host Options</a></li>
+        <li th:if="${#httpServletRequest.remoteUser} == ${event.organiser.username}"><a data-toggle="tab" href="#menu5" onclick="hideFunction('menu5')">Invite</a></li>
       </ul>
 
 
@@ -103,12 +107,25 @@
             </form>
               </span>
               </span>
-               <span><form th:action="@{/}" method="post"><button type="submit" class="btn btn-primary btn-block" id="unlistEventButton" >Unlist Event</button></form></span>
+               <span><form th:action="@{/unlistEvent}" method="post"><input type="hidden" name="eventTitle" th:value="${event.title}"><button type="submit" class="btn btn-primary btn-block" id="unlistEventButton" >Unlist Event</button></form></span>
                <span th:if="${event.privacy} == true"><form th:action="@{/make_private}" method="post"><input type="hidden" name="id" th:value="${event.id}"><input type="hidden" name="eventTitle" id="eventTitle2" th:value="${event.title}"><button type="submit" class="btn btn-primary btn-block" id="PrivateEventButton" > Make Event private</button></form></span>
                <span th:if="${event.privacy} == false"><form th:action="@{/make_public}" method="post"><input type="hidden" name="id" th:value="${event.id}"><input type="hidden" name="eventTitle" id="eventTitle3" th:value="${event.title}"><button type="submit" class="btn btn-primary btn-block" id="PublicEventButton" >Make Event public</button></form></span>
               <h3></h3>
             </div>
 
+            <div id="menu5" class="tab-pane fade">
+              <h2>Invite</h2>
+              <h4>Enter the username of the person you want to invite</h4>
+              <form th:action="@{/EventInvite}" method="post">
+                <span><input  type="text" name="inviteUsername" id="inviteUsername" placeholder="JohnDoe"></span>
+                    <input type="hidden" name="username" th:value="${#httpServletRequest.remoteUser}">
+                    <input type="hidden" name="eventTitle"  th:value="${event.title}">
+                    <input type="hidden" name="id" th:value="${event.id}">
+                <span><button type="submit" class="btn-primary btn-block" id="inviteButton">Invite</button></span>
+
+
+              </form>
+            </div>
 
           </div>
         </div>
@@ -120,9 +137,11 @@
   <div class="col-sm-1"></div>
 
   <div class="topBar">
+    <div class="row"></div>
     <div class="row">
       <div class="col-sm-6">
-        <div class="col-sm-6">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
           <a th:href="@{/}"><span class="Zerilla">Zerilla</span></a>
         </div>
         <div class="col-sm-6">
@@ -133,19 +152,22 @@
         <div  class="col-sm-1">
           <a th:href="@{/}"><span class="home">Home</span></a>
         </div>
+        <div class="col-sm-1"></div>
         <div  class="col-sm-1">
           <a th:href="@{/events}"><span class="discover">Discover</span></a>
         </div>
-
+        <div class="col-sm-1"></div>
         <div  class="col-sm-3">
           <span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/my_profile}" method="post"><button type="submit" id="profileButton" class="btn btn-primary btn-block" th:value="'Hello '+ ${#httpServletRequest.remoteUser}">Hello [[${#httpServletRequest.remoteUser}]]!</button><input type="hidden" th:value="${#httpServletRequest.remoteUser}"></form></span></span>
           <span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/login}"><span class="login"><span class="glyphicon glyphicon-log-in"></span> Login</span></a></span>
         </div>
+        <div class="col-sm-1"></div>
         <div  class="col-sm-3">
           <span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/logout}" method="post"><button type="submit" class="btn btn-primary btn-block" value="Sign Out" id="logoutButton">Sign out</button></form></span></span>
           <span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/register}"><span class="register"><span class="glyphicon glyphicon-user"></span> Register</span></a></span>
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-1"></div>
+
       </div>
     </div>
   </div>

@@ -2,7 +2,6 @@ package com.premelc.zerilla.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -25,9 +24,14 @@ public class Event {
     private String date;
     //true ++ public , false -- private
     private Boolean privacy = true;
+    private Boolean unlisted = false;
 
     @ManyToOne
     private Organiser organiser;
+
+    @OneToMany
+    @JoinColumn(name = "event_id")
+    private Set<Invitation> Invitations = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name="user_event" , joinColumns = @JoinColumn(name = "event_id") , inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -35,6 +39,8 @@ public class Event {
 
     public Event() {
     }
+
+
 
     public Event(String title, String code, String shortDesc, String longDesc, String type, String embeddedVid, Organiser organiser , String artistDesc) {
         this.privacy = true;
@@ -46,6 +52,14 @@ public class Event {
         this.type = type;
         this.embeddedVid = embeddedVid;
         this.organiser = organiser;
+    }
+
+    public Set<Invitation> getInvitations() {
+        return Invitations;
+    }
+
+    public void setInvitations(Set<Invitation> Invitations) {
+        this.Invitations = Invitations;
     }
 
     public Boolean getPrivacy() {
@@ -69,7 +83,14 @@ public class Event {
         this.code = code;
     }
 
-    /*public Event(Optional<Event> event) {
+    public Boolean getUnlisted() {
+        return unlisted;
+    }
+
+    public void setUnlisted(Boolean unlisted) {
+        this.unlisted = unlisted;
+    }
+/*public Event(Optional<Event> event) {
         this.title = event.
     }*/
 

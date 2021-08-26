@@ -14,10 +14,22 @@ public class User {
     private String username;
     private String password;
     private String shortDesc;
+    private String favQuote;
+    private String favArtist;
+    private String anthem;
+    private String occupation;
+    private String country;
+    private String hobby;
+
 
 
     @ManyToMany(mappedBy = "users")
     private Set<Event> events = new HashSet<>();
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private  Set<Invitation> Invitations = new HashSet<>();
+
 
     public User() {
     }
@@ -28,8 +40,25 @@ public class User {
         this.shortDesc = "PLACEHOLDER";
     }
 
+    public String getFavQuote() {
+        return favQuote;
+    }
+
+    public void setFavQuote(String favQuote) {
+        this.favQuote = favQuote;
+    }
+
+
     public Long getId() {
         return id;
+    }
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
     }
 
     public void setId(Long id) {
@@ -38,6 +67,46 @@ public class User {
 
     public String getShortDesc() {
         return shortDesc;
+    }
+
+    public String getFavArtist() {
+        return favArtist;
+    }
+
+    public void setFavArtist(String favArtist) {
+        this.favArtist = favArtist;
+    }
+
+    public String getAnthem() {
+        return anthem;
+    }
+
+    public void setAnthem(String anthem) {
+        this.anthem = anthem;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Set<Invitation> getInvitations() {
+        return Invitations;
+    }
+
+    public void setInvitations(Set<Invitation> Invitations) {
+        this.Invitations = Invitations;
     }
 
     public void setShortDesc(String shortDesc) {

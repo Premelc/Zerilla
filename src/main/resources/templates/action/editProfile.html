@@ -33,31 +33,32 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6 justify-content-right">
         <div id="hostBox">
-            <ul class="nav nav-tabs">
-                <li><a data-toggle="tab">Overview</a></li>
-                <li><a data-toggle="tab">Artist</a></li>
-                <li class="active" ><a data-toggle="tab" href="#menu2">Location</a></li>
-            </ul>
+                <form th:action="@{/saveChanges}" th:object="${user}" method="post">
+                    <div id="home" class="tab-pane fade in active">
+                        <div>
+                            <label for="username">Username (Changing requires a relog)</label><br>
+                            <input type="text" id="username" th:field="*{username}" name="username" th:value="${user.username}"><br>
+                            <label for="shortDesc">Short Description</label><br>
+                            <textarea rows = "3" cols = "25" id="shortDesc" name="shortDesc" th:field="*{shortDesc}" th:value="${user.shortDesc}"></textarea><br>
+                            <label for="type">Favourite Quote</label><br>
+                            <input type="text" id="type" name="type" th:field="*{favQuote}" th:value="${user.favQuote}"><br>
 
-            <div class="tab-content">
-                <form th:action="@{/process_hosting_finish}" th:object="${event3}" method="post">
-                    <div id="home" class="tab-pane fade">
-                    </div>
+                            <label for="country">Country</label><br>
+                            <input type="text" id="country" name="country" th:field="*{country}" th:value="${user.country}"><br>
+                            <label for="occupation">Occupation</label><br>
+                            <input type="text" id="occupation" name="country" th:field="*{occupation}" th:value="${user.occupation}"><br>
+                            <label for="favArtist">Favourite artist</label><br>
+                            <input type="text" id="favArtist" name="favArtist" th:field="*{favArtist}" th:value="${user.favArtist}"><br>
+                            <label for="anthem">Favourite song</label><br>
+                            <input type="text" id="anthem" name="anthem" th:field="*{anthem}" th:value="${user.anthem}"><br>
+                            <label for="hobby">Hobby</label><br>
+                            <input type="text" id="hobby" name="hobby" th:field="*{hobby}" th:value="${user.hobby}"><br>
 
-                    <div id="menu1" class="tab-pane fade">
-                    </div>
-
-
-                    <div id="menu2" class="tab-pane fade in active">
-                        <label for="location">Location</label><br>
-                        <input type="text" id="location" name="location" th:field="*{location}" placeholder="Arthur Krizevci" ><br>
-                        <label for="aboutLocation">About Location</label><br>
-                        <textarea rows = "5" cols = "25" id="aboutLocation" name="aboutLocation" th:field="*{aboutLocation}" placeholder="Description..." ></textarea><br>
-                        <input type="hidden" name="username" id="username" th:value="${#httpServletRequest.remoteUser}">
-                        <button type="submit" class="btn btn-primary btn-block" id="hostButton" >Create Event</button>
+                            <input  type="hidden" name="trueUsername" id="trueUsername" th:value="${#httpServletRequest.remoteUser}">
+                            <button type="submit" class="btn btn-primary btn-block" id="hostButton" >Save Changes</button>
+                        </div>
                     </div>
                 </form>
-            </div>
         </div>
     </div>
 </div>
@@ -101,6 +102,5 @@
     </div>
 </div>
 
-</div>
 </body>
 </html>

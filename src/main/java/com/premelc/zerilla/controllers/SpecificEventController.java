@@ -4,6 +4,7 @@ package com.premelc.zerilla.controllers;
 import com.premelc.zerilla.models.Event;
 import com.premelc.zerilla.models.User;
 import com.premelc.zerilla.repositories.EventRepository;
+import com.premelc.zerilla.repositories.InvitationRepository;
 import com.premelc.zerilla.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +15,13 @@ public class SpecificEventController {
 
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
+    private final InvitationRepository invitationRepository;
 
 
-    public SpecificEventController(EventRepository eventRepository , UserRepository userRepository) {
+    public SpecificEventController(EventRepository eventRepository , UserRepository userRepository , InvitationRepository invitationRepository) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.invitationRepository = invitationRepository;
     }
 
     @RequestMapping("/specific_event")
@@ -94,6 +97,20 @@ public class SpecificEventController {
         model.addAttribute("events" , eventRepository.findAll());
         model.addAttribute("id" , id);
         return "events/specificEvent";
+    }
+
+    @RequestMapping("/unlistEvent")
+    public String unlistEvent(String eventTitle ,Long id,Model model){
+        Event event = eventRepository.findByTitle(eventTitle);
+
+        event.setPrivacy(false);
+        event.getUsers().clear();
+        event.setUnlisted(true);
+
+        model.addAttribute("message" , "event successfully unlisted");
+        model.addAttribute("events" , eventRepository.findAll());
+
+        return "events/discover";
     }
 
 }

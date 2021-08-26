@@ -7,6 +7,7 @@
             document.getElementById("home").style.display="none";
             document.getElementById("menu1").style.display="none";
             document.getElementById("menu2").style.display="none";
+            document.getElementById("menu3").style.display="none";
             document.getElementById(id).style.display="block";
         }
     </script>
@@ -44,6 +45,7 @@
             <li class="active"><a data-toggle="tab" href="#home" onclick="hideFunction('home')">Overview</a></li>
             <li><a data-toggle="tab" href="#menu1" onclick="hideFunction('menu1')">My events</a></li>
             <li><a data-toggle="tab" href="#menu2" onclick="hideFunction('menu2')">Hosted Events</a></li>
+            <li><a data-toggle="tab" href="#menu3" onclick="hideFunction('menu3')">Received invitations</a></li>
         </ul>
 
         <div class="tab-content">
@@ -53,8 +55,16 @@
 
                     <div id="home" class="tab-pane fade in active">
                         <h2 th:text="${user.username}">Overview</h2>
-                        <div th:if="${creation} == 1"><h2>Sucessfully created an event!</h2></div>
                         <div><p th:text="${user.shortDesc}"></p></div>
+                        <span th:if="${user.favQuote} != null"><h3 th:if="${user.favQuote} != ''" th:text="${user.favQuote}"></h3></span>
+                        <br>
+                        <span th:if="${user.occupation} != null"><h4 th:if="${user.occupation} != ''" th:text="'Occupation: '+ ${user.occupation}"></h4></span>
+                        <span th:if="${user.country} != null"><h4 th:if="${user.country} != ''" th:text="'From: '+ ${user.country}"></h4></span>
+                        <span th:if="${user.favArtist} != null "><h4 th:if="${user.favArtist} != ''" th:text="'Favourite artist: '+ ${user.favArtist}"></h4></span>
+                        <span th:if="${user.anthem} != null"><h4 th:if="${user.anthem} != ''" th:text="'Anthem: '+ ${user.anthem}"></h4></span>
+                        <span th:if="${user.hobby} != null"><h4 th:if="${user.hobby} != ''" th:text="'Hobby: '+ ${user.hobby}"></h4></span>
+                        <br><br>
+                        <form th:action="@{/editProfile}" method="post"><input type="hidden" name="username" th:value="${user.username}"> <button type="submit" class="btn-primary btn-block" id="editProfileButton">Edit profile</button> </form>
                     </div>
 
                     <div id="menu1" class="tab-pane fade">
@@ -67,7 +77,7 @@
                                 </h4>
                             </div>
                             <div th:id="'collapse'+ ${event.id}" class="panel-collapse collapse" style="background: rgba(174,33,197,1);border: 1px solid black">
-                                <div class="panel-body"><div  th:text="${event.shortDesc}"> </div><form th:action="@{/specific_event}" method="get"> <br><button type="submit" value="FIND OUT MORE">FIND OUT MORE</button><input type="hidden" name="id" th:value="${event.id}"></form>
+                                <div class="panel-body"><div  th:text="${event.shortDesc}"> </div><form th:action="@{/specific_event}" method="get"> <br><button type="submit" class="btn-primary btn-block" id="findOutMoreButton3" value="FIND OUT MORE">FIND OUT MORE</button><input type="hidden" name="id" th:value="${event.id}"></form>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +95,7 @@
                                 </h4>
                             </div>
                             <div th:id="'collapse1'+ ${event.id}" class="panel-collapse collapse" style="background: rgba(174,33,197,1);border: 1px solid black">
-                                <div class="panel-body"><div  th:text="${event.shortDesc}"> </div><form th:action="@{/specific_event}" method="get"> <br><button type="submit" value="FIND OUT MORE">FIND OUT MORE</button><input type="hidden" name="id" th:value="${event.id}"></form>
+                                <div class="panel-body"><div  th:text="${event.shortDesc}"> </div><form th:action="@{/specific_event}" method="get"> <br><button class="btn-primary btn-block" id="findOutMoreButton2" type="submit" value="FIND OUT MORE">FIND OUT MORE</button><input type="hidden" name="id" th:value="${event.id}"></form>
                                 </div>
                             </div>
                         </div>
@@ -94,6 +104,22 @@
                         <button type="submit" class="btn btn-primary btn-block" id="hostButton" >Create an event</button>
                         </form>
                     </div>
+
+                    <div id="menu3" class="tab-pane fade">
+                        <h2>Received invitations</h2>
+                        <div class="panel panel-default" th:each="inv : ${user.invitations}">
+                            <div class="panel-heading" style="background: rgba(129,24,143,1);">
+                                <h4 class="panel-title" style="color: rgba(255,255,255,1);" >
+                                    <a data-toggle="collapse" data-parent="#accordionSearch" th:href="'#collapse2' + ${inv.id}" th:text="${inv.invited.username} + ' to ' + ${inv.invitedTo.title}"></a>
+                                </h4>
+                            </div>
+                            <div th:id="'collapse2'+ ${inv.id}" class="panel-collapse collapse" style="background: rgba(174,33,197,1);border: 1px solid black">
+                                <div class="panel-body"><div th:text="'You have been invited by ' + ${inv.invitedTo.organiser.username} + ' to ' + ${inv.invitedTo.title}"></div><br><h3 th:text="'Your invitation code: '+${inv.invitationCode}"></h3><form th:action="@{/specific_event}" method="get"> <br><button class="btn-primary btn-block" id="findOutMoreButton" type="submit" value="FIND OUT MORE">Check it out!</button><input type="hidden" name="id" th:value="${inv.invitedTo.id}"></form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -106,9 +132,11 @@
 
 
 <div class="topBar">
+    <div class="row"></div>
     <div class="row">
         <div class="col-sm-6">
-            <div class="col-sm-6">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
                 <a th:href="@{/}"><span class="Zerilla">Zerilla</span></a>
             </div>
             <div class="col-sm-6">
@@ -119,21 +147,32 @@
             <div  class="col-sm-1">
                 <a th:href="@{/}"><span class="home">Home</span></a>
             </div>
+            <div class="col-sm-1"></div>
             <div  class="col-sm-1">
                 <a th:href="@{/events}"><span class="discover">Discover</span></a>
             </div>
-
+            <div class="col-sm-1"></div>
             <div  class="col-sm-3">
                 <span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/my_profile}" method="post"><button type="submit" id="profileButton" class="btn btn-primary btn-block" th:value="'Hello '+ ${#httpServletRequest.remoteUser}">Hello [[${#httpServletRequest.remoteUser}]]!</button><input type="hidden" th:value="${#httpServletRequest.remoteUser}"></form></span></span>
                 <span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/login}"><span class="login"><span class="glyphicon glyphicon-log-in"></span> Login</span></a></span>
             </div>
+            <div class="col-sm-1"></div>
             <div  class="col-sm-3">
                 <span th:if="${#httpServletRequest.remoteUser}"><span><form th:action="@{/logout}" method="post"><button type="submit" class="btn btn-primary btn-block" value="Sign Out" id="logoutButton">Sign out</button></form></span></span>
                 <span th:if="${#httpServletRequest.remoteUser} == null"><a th:href="@{/register}"><span class="register"><span class="glyphicon glyphicon-user"></span> Register</span></a></span>
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-1"></div>
+
         </div>
     </div>
 </div>
+
+<div th:if="${creation} == 1">
+    <script th:inline="javascript">
+        var m ='Sucessfully created an event!';
+        alert(m);
+    </script>
+</div>
+
 </body>
 </html>
