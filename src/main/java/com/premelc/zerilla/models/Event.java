@@ -2,6 +2,7 @@ package com.premelc.zerilla.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 @Entity
@@ -42,15 +43,46 @@ public class Event {
 
 
 
-    public Event(String title, String code, String shortDesc, String longDesc, String type, String embeddedVid, Organiser organiser , String artistDesc) {
+    public Event(String title, String shortDesc, String longDesc, String type, String embeddedVid, Organiser organiser , String artistDesc) {
         this.privacy = true;
         this.title = title;
-        this.code = code;
+
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        this.setCode(generatedString);
         this.shortDesc = shortDesc;
         this.longDesc = longDesc;
         this.artistDesc = artistDesc;
         this.type = type;
         this.embeddedVid = embeddedVid;
+        this.organiser = organiser;
+    }
+
+    public Event(String title, String shortDesc, String longDesc, String artist, String artistDesc, String type, String embeddedVid, String location, String aboutLocation, Organiser organiser) {
+        this.title = title;
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        this.setCode(generatedString);
+        this.shortDesc = shortDesc;
+        this.longDesc = longDesc;
+        this.artist = artist;
+        this.artistDesc = artistDesc;
+        this.type = type;
+        this.embeddedVid = embeddedVid;
+        this.location = location;
+        this.aboutLocation = aboutLocation;
         this.organiser = organiser;
     }
 

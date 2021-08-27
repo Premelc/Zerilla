@@ -1,5 +1,7 @@
 package com.premelc.zerilla.models;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,9 +36,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username , String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(password);
+        this.setPassword(encodedPassword);
         this.username = username;
-        this.password = password;
         this.shortDesc = "PLACEHOLDER";
     }
 

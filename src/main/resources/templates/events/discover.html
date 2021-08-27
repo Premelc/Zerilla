@@ -92,7 +92,8 @@
   </div>
 </div>
 <div class="panel-group" id="accordionSearch" style="background: solid black">
-  <div class="panel panel-default" th:each="event : ${events}">
+  <span th:each="event : ${events}">
+  <div class="panel panel-default" >
     <span th:if="${event.privacy} == true">
     <div class="panel-heading" style="background: rgba(129,24,143,1);">
       <h4 class="panel-title" style="color: rgba(255,255,255,1);" >
@@ -106,6 +107,7 @@
     </div>
     </span>
   </div>
+</span>
 
 </div>
       </div>
