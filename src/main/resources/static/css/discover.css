@@ -91,7 +91,7 @@
   -webkit-transition: opacity .2s ease-out;
   -o-transition: opacity .2s ease-out;
 }
-input [type=text]{
+input [type=text], [type=date]{
   background: rgba(129,24,143,1);
   font-family: Revalia;
   font-weight: Regular;
@@ -100,7 +100,7 @@ label{
   font-family: Revalia;
   font-weight: Regular;
 }
-input[type=text] , [type=password]{
+input[type=text] , [type=password] , [type=date]{
   width: 85%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -122,14 +122,9 @@ a:link {
   background-color: transparent;
   text-decoration: none;
 }
-
 a:active{
   color:black;
 }
 a:visited{
   color:black;
-}
-
-#accordionSearch{
-  overflow: scroll;
 }

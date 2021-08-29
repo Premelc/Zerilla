@@ -53,6 +53,8 @@
                             <input type="text" id="type" name="type" th:field="*{type}" placeholder="rave" ><br>
                             <label for="aboutOrganiser">About organiser</label><br>
                             <input type="text" id="aboutOrganiser" name="aboutOrganiser" placeholder="About me..." ><br>
+                            <label for="type">Date</label><br>
+                            <input type="date" id="date" name="date" th:field="*{date}" placeholder="date" ><br>
                             <input  type="hidden" name="username" id="username" th:value="${#httpServletRequest.remoteUser}">
                             <button type="submit" class="btn btn-primary btn-block" id="hostButton" >Next step</button>
                         </div>

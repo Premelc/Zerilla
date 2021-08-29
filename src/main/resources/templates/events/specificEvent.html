@@ -60,7 +60,8 @@
 
 
           <div id="home" class="tab-pane fade in active">
-                  <h2>Overview</h2>
+                  <h2 th:text="${event.title}"></h2>
+                  <h3 th:text="'Date: ' + ${event.date}"></h3>
                   <div><p th:text="${event.longDesc}"></p></div>
                   <div id="eventCode">
                   <h3 th:text="'EVENT CODE: ' + ${event.code}"></h3>

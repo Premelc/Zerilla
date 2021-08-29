@@ -83,3 +83,21 @@ ul{
     border: medium none;
     border-radius: 0;
 }
+
+input[type=text] , [type=password] , [type=date]{
+    width: 85%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: Revalia;
+    font-weight: Regular;
+}
+
+input [type=text], [type=date]{
+    background: rgba(129,24,143,1);
+    font-family: Revalia;
+    font-weight: Regular;
+}
